@@ -3,6 +3,8 @@ import {Inter} from 'next/font/google'
 import './globals.css'
 import Header from "@/components/header";
 import Sidebar from "@/components/sidebar";
+import {ReactNode} from "react";
+import Providers from "@/app/redux/provider";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -15,13 +17,17 @@ export default function RootLayout(
     {
         children,
     }: {
-        children: React.ReactNode
+        children: ReactNode
     }) {
     return (
         <html lang="en">
         <body className={inter.className}>
-        <div><Header/>
-            <Sidebar/></div>
+        <Providers>
+            <div>
+                <Header/>
+                <Sidebar/>
+            </div>
+        </Providers>
         </body>
         </html>
     )

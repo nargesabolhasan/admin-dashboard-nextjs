@@ -2,18 +2,23 @@
 import React, {useState} from 'react';
 import Link from "next/link";
 import sidebarItems from "@/components/sidebar/sidebar-items";
-import {usePathname,useRouter} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "@/app/redux/store";
+import sidebarReducer from "@/app/redux/featuers/sidebar/sidebar-slice";
 
 const Sidebar = () => {
-    const [sidebarIsOpen, setSidebarIsOpen] = useState<boolean>(true)
     const pathname = usePathname()
     const router = useRouter()
+    const showSidebar = useSelector((state: RootState) => state.sidebar.isOpen)
+
     const handleNavigate = (path: string) => {
         router.push(path)
     }
+
     return (
         <aside
-            className={`absolute top-0 left-0 flex flex-col h-screen w-[350px] z-30 overflow-y-hidden bg-amber-800 duration-300 ease-linear lg:static lg:translate-x-0 ${sidebarIsOpen ? "translate-x-0" : "-translate-x-full"}`}>
+            className={`absolute top-0 left-0 flex flex-col h-screen w-[350px] z-30 overflow-y-hidden bg-amber-800 duration-300 ease-linear ${showSidebar ? "translate-x-0" : "-translate-x-full"}`}>
             <div className={"flex flex-col justify-between items-center gap-2 p-6"}>
                 <Link href={"/"} className={"text-[40px]"}>admin dashboard</Link>
                 <div className={"flex flex-col  duration-300 ease-linear"}>
